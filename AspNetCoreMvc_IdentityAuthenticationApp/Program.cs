@@ -1,3 +1,8 @@
+using AspNetCoreMvc_IdentityAuthenticationApp.Data;
+using AspNetCoreMvc_IdentityAuthenticationApp.Extensions;
+using AspNetCoreMvc_IdentityAuthenticationApp.Identity.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace AspNetCoreMvc_IdentityAuthenticationApp
 {
     public class Program
@@ -8,6 +13,13 @@ namespace AspNetCoreMvc_IdentityAuthenticationApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<AppDbContext>(
+               options => options.UseSqlServer
+               (builder.Configuration.GetConnectionString("ConnStr"))
+
+               );
+            builder.Services.AddIdentityExtensions();
 
             var app = builder.Build();
 
